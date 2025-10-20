@@ -21,9 +21,7 @@ function getRandomNumber(min, max) {
 
 // Hide all feedback messages
 function hideAllMessages() {
-  for (let i = 0; i < messages.length; i++) {
-    messages[i].style.display = 'none';
-  }
+  Array.from(messages).forEach(msg => (msg.style.display = 'none'));
 }
 
 // Initialize / Reset the game
@@ -37,36 +35,31 @@ function setup() {
   submitButton.disabled = false;
 
   hideAllMessages();
-  maxGuessesMessage.style.display = 'none';
   resetButton.style.display = 'none';
-  resetButton.disabled = false;
-  numberOfGuessesMessage.style.display = 'none';
 }
 
 // Handle a guess
 function checkGuess() {
+  // Always hide messages at the start
+  hideAllMessages();
+
   const guess = parseInt(guessInput.value, 10);
 
   // Input validation
   if (Number.isNaN(guess)) {
-    hideAllMessages();
     numberOfGuessesMessage.style.display = 'block';
     numberOfGuessesMessage.textContent = 'Please enter a valid number.';
     return;
   }
 
   if (guess < 1 || guess > 99) {
-    hideAllMessages();
     numberOfGuessesMessage.style.display = 'block';
     numberOfGuessesMessage.textContent = 'Please enter a number between 1 and 99.';
     return;
   }
 
-  // Increment attempts
   attempts++;
-
-  // Hide previous feedback
-  hideAllMessages();
+  const remainingAttempts = maxNumberOfAttempts - attempts;
 
   // Correct guess
   if (guess === targetNumber) {
@@ -74,11 +67,9 @@ function checkGuess() {
     numberOfGuessesMessage.style.display = 'block';
     numberOfGuessesMessage.innerHTML = `You made ${attempts} ${attempts === 1 ? 'guess' : 'guesses'}.`;
 
-    submitButton.disabled = true;
     guessInput.disabled = true;
-
+    submitButton.disabled = true;
     resetButton.style.display = 'block';
-    resetButton.disabled = false;
     return;
   }
 
@@ -88,22 +79,19 @@ function checkGuess() {
     numberOfGuessesMessage.style.display = 'block';
     numberOfGuessesMessage.textContent = '0 guesses remaining';
 
-    submitButton.disabled = true;
     guessInput.disabled = true;
-
+    submitButton.disabled = true;
     resetButton.style.display = 'block';
-    resetButton.disabled = false;
     return;
   }
 
   // Feedback for remaining attempts
-  const remainingAttempts = maxNumberOfAttempts - attempts;
   numberOfGuessesMessage.style.display = 'block';
   numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} ${remainingAttempts === 1 ? 'guess' : 'guesses'} remaining`;
 
   if (guess < targetNumber) {
     tooLowMessage.style.display = 'block';
-  } else if (guess > targetNumber) {
+  } else {
     tooHighMessage.style.display = 'block';
   }
 }
