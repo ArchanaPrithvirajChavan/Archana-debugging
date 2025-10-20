@@ -50,6 +50,12 @@ function checkGuess() {
     numberOfGuessesMessage.textContent = 'Please enter a valid number.';
     return;
   }
+  if (guess < 1 || guess > 99) {
+  hideAllMessages();
+  numberOfGuessesMessage.style.display = 'block';
+  numberOfGuessesMessage.textContent = 'Please enter a number between 1 and 99.';
+  return;
+}
 
   // count this attempt
   attempts++;
@@ -95,10 +101,8 @@ function checkGuess() {
 
   if (guess < targetNumber) {
   tooLowMessage.style.display = 'block';
-  tooHighMessage.style.display = 'none';
 } else if (guess > targetNumber) {
   tooHighMessage.style.display = 'block';
-  tooLowMessage.style.display = 'none';
 }
 
 }
