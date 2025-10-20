@@ -33,7 +33,7 @@ function setup() {
   guessInput.value = '';
 
   hideAllMessages();
-  numberOfGuessesMessage.style.display = 'none';
+  //numberOfGuessesMessage.style.display = 'none';
 
   // hide reset initially; ensure it's not disabled so it will work when shown
   resetButton.style.display = 'none';
@@ -94,12 +94,13 @@ function checkGuess() {
   numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} ${remainingAttempts === 1 ? 'guess' : 'guesses'} remaining`;
 
   if (guess < targetNumber) {
-    tooLowMessage.style.display = 'block';
-    tooHighMessage.style.display = 'none';
-  } else {
-    tooHighMessage.style.display = 'block';
-    tooLowMessage.style.display = 'none';
-  }
+  tooLowMessage.style.display = 'block';
+  tooHighMessage.style.display = 'none';
+} else if (guess > targetNumber) {
+  tooHighMessage.style.display = 'block';
+  tooLowMessage.style.display = 'none';
+}
+
 }
 
 // wire events
