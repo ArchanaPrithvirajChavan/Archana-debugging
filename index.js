@@ -24,7 +24,7 @@ function hideAllMessages() {
 }
 
 function setup() {
-  targetNumber = getRandomNumber(1, 100);
+  targetNumber = getRandomNumber(1, 99);
   console.log('target number:', targetNumber);
 
   attempts = 0;
