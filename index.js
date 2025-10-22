@@ -43,6 +43,7 @@ function checkGuess() {
   // Always hide messages at the start
   hideAllMessages();
 
+  resetButton.style.display = 'block';
   const guess = parseInt(guessInput.value, 10);
 
   // Input validation
